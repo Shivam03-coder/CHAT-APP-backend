@@ -23,11 +23,6 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-
-    isuserRegistered: {
-      type: Boolean,
-      default: false,
-    },
     isAuthenticated: {
       type: Boolean,
       default: false,

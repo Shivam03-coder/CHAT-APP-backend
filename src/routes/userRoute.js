@@ -17,7 +17,7 @@ const Authroutes = Router();
 
 Authroutes.route("/signup").post(userregisterController);
 Authroutes.route("/email-verify").post(useremailverifyController);
-Authroutes.route("/user-login").post(userloginController);
+Authroutes.route("/login").post(userloginController);
 Authroutes.route("/user-logout").post(userlogoutController);
 Authroutes.route("/user-passwordreset").post(userResetpasswordController);
 

@@ -28,12 +28,6 @@ const userregisterController = async (req, res) => {
       "-password -isAuthenticated -isemailVerified  -isphoneNoVerified -phonenumber -createdAt -updatedAt -__v"
     );
 
-    newUser.isuserRegistered = true;
-
-    await newUser.save();
-
-    res.cookie("isuserRegistered", newUser.isuserRegistered);
-
     return res.status(200).json({
       status: "success",
       message: "Registeration successfull !",
