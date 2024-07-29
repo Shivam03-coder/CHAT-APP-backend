@@ -9,7 +9,7 @@ const userloginController = async (req, res) => {
     const user = await UserModel.findOne({ email });
 
     if (!user) {
-     return res.status(404).json({
+      return res.status(404).json({
         status: "failed",
         message: `Invali email or password`,
       });
@@ -40,6 +40,10 @@ const userloginController = async (req, res) => {
     // send isAuthenticated as cookie to user
 
     res.cookie("isUserAuthentucated", user.isAuthenticated);
+
+    //send otp
+
+    sendEmailverificationOtp(user);
 
     // Response after user successfully login
 

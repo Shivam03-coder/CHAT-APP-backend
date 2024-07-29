@@ -14,7 +14,7 @@ const sendEmailverificationOtp = async (newUser) => {
       to: newUser.email,
       subject: "OTP - Verify your account", // Subject line
       html: `<h2>Dear ${newUser.fullname},</h2>
-             <p>Thank you for registering on AMS </p>
+             <p>Thank you for registering on CHAT-APP </p>
             <h1>OTP : ${OTP}</h1>
             <p>This OTP is valid for 10 minutes.</p>`,
     };

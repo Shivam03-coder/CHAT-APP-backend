@@ -15,10 +15,6 @@ const useremailverifyController = async (req, res) => {
       });
     }
 
-    //send otp
-
-    sendEmailverificationOtp(userexisting);
-
     if (userexisting.isemailVerified) {
       return res.status(405).json({
         status: "failed",
