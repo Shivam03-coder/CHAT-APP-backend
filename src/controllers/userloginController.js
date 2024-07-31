@@ -41,10 +41,6 @@ const userloginController = async (req, res) => {
 
     res.cookie("isUserAuthentucated", user.isAuthenticated);
 
-    //send otp
-
-    sendEmailverificationOtp(user);
-
     // Response after user successfully login
 
     res.status(200).json({
