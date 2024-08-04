@@ -7,7 +7,6 @@ import {
   userprofileController,
   userlogoutController,
   userpasswordChangeController,
-  userResetpasswordController,
 } from "../controllers/index.js";
 
 const Authroutes = Router();
@@ -17,21 +16,12 @@ const Authroutes = Router();
 Authroutes.route("/signup").post(userregisterController);
 Authroutes.route("/login").post(userloginController);
 Authroutes.route("/user-logout").post(userlogoutController);
-Authroutes.route("/user-passwordreset").post(userResetpasswordController);
+Authroutes.route("/userPasswordchange").post(userpasswordChangeController);
 
 // Protected Routes
-Authroutes
-  .route("/user-profile")
-  .post(
-    getnewToken,
-    passport.authenticate("jwt", { session: false }),
-    userprofileController
-  );
-Authroutes
-  .route("/user-passwordChange")
-  .post(
-    getnewToken,
-    passport.authenticate("jwt", { session: false }),
-    userpasswordChangeController
-  );
+Authroutes.route("/user-profile").post(
+  getnewToken,
+  passport.authenticate("jwt", { session: false }),
+  userprofileController
+);
 export { Authroutes };

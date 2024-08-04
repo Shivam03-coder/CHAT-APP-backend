@@ -3,7 +3,6 @@ import userloginController from "./userloginController.js";
 import userprofileController from "./userprofileController.js";
 import userlogoutController from "./userlogoutController.js";
 import userpasswordChangeController from "./userpasswordChangeController.js";
-import userResetpasswordController from "./userResetpasswordController.js";
 
 export {
   userregisterController,
@@ -11,5 +10,4 @@ export {
   userprofileController,
   userlogoutController,
   userpasswordChangeController,
-  userResetpasswordController,
 };
