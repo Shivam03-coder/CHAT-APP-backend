@@ -1,27 +1,33 @@
 import UserModel from "../models/usermodel.js";
-import bcrypt, { genSalt } from "bcrypt";
 
-const userpasswordChangeController = async (req, res) => {
+const userPasswordChangeController = async (req, res) => {
   try {
-    const { password } = req.body;
-    const salt = await genSalt(10);
-    const newHashedpassword = await bcrypt.hash(password, salt);
-    console.log(newHashedpassword)
+    const { email, password } = req.body;
 
-    await UserModel.findByIdAndUpdate(req.user._id, {
-      $set: { password: newHashedpassword },
-    });
+    const user = await UserModel.findOne({ email });
 
-    res.status(200).json({
-      status: "sucess",
-      message: "Password cahnged succesfully",
+    if (!user) {
+      return res.status(400).json({
+        status: "failed",
+        message: "Invalid user",
+      });
+    }
+
+
+    user.password = password;
+    await user.save();
+
+    return res.status(200).json({
+      status: "success",
+      message: "Password changed successfully",
     });
   } catch (error) {
-    res.status(200).json({
+    console.error("Error changing password:", error);
+    return res.status(500).json({
       status: "failed",
-      message: "Password cahnging failed",
+      message: "Password changing failed",
     });
   }
 };
 
-export default userpasswordChangeController;
+export default userPasswordChangeController;
