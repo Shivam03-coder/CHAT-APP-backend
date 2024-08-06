@@ -15,8 +15,8 @@ const Authroutes = Router();
 
 Authroutes.route("/signup").post(userregisterController);
 Authroutes.route("/login").post(userloginController);
-Authroutes.route("/user-logout").post(userlogoutController);
-Authroutes.route("/userPasswordchange").post(userpasswordChangeController);
+Authroutes.route("/userlogout").post(userlogoutController);
+Authroutes.route("/userpasswordchange").post(userpasswordChangeController);
 
 // Protected Routes
 Authroutes.route("/user-profile").post(

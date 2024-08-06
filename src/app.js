@@ -18,8 +18,10 @@ app.use(
   })
 );
 
-import { Authroutes } from "./routes/userRoute.js";
+import { Authroutes } from "./routes/userauthRoute.js";
+import { userContactRoute } from "./routes/userContactRoutes.js";
 
-app.use("/api/v1/chat-app", Authroutes);
+app.use("/api/v1/chat-app/user", Authroutes);
+app.use("/api/v1/chat-app/user", userContactRoute);
 
 export { app };

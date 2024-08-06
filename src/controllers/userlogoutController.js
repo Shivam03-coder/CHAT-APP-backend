@@ -2,7 +2,7 @@ const userlogoutController = async (req, res) => {
   try {
     res.clearCookie("accessToken");
     res.clearCookie("refreshToken");
-    res.clearCookie("isAuthenticated");
+    res.clearCookie("isUserAuthenticated");
 
     res.status(200).json({
       status: "sucess",

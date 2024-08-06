@@ -39,7 +39,9 @@ const userloginController = async (req, res) => {
 
     // send isAuthenticated as cookie to user
 
-    res.cookie("isUserAuthentucated", user.isAuthenticated);
+    res.cookie("isUserAuthenticated", user.isAuthenticated, {
+      maxAge: 5 * 24 * 60 * 60 * 1000,
+    });
 
     // Response after user successfully login
 

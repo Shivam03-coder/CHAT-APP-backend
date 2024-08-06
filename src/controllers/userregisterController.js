@@ -6,9 +6,7 @@ const userregisterController = async (req, res) => {
 
     // CHECKING EXISTING USER
 
-    const existingUser = await UserModel.findOne({
-      $or: [{ phonenumber }, { email }],
-    });
+    const existingUser = await UserModel.findOne({ email });
 
     if (existingUser) {
       return res.status(409).json({
