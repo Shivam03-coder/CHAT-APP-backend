@@ -4,6 +4,7 @@ import userprofileController from "./userprofileController.js";
 import userlogoutController from "./userlogoutController.js";
 import userpasswordChangeController from "./userpasswordChangeController.js";
 import getUsersContactController from "./getUsersContactController.js";
+import getMessagesController from "./getMessagesController.js";
 
 export {
   userregisterController,
@@ -11,5 +12,6 @@ export {
   userprofileController,
   userlogoutController,
   userpasswordChangeController,
+  getMessagesController,
   getUsersContactController
 };
