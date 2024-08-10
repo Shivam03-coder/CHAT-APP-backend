@@ -5,6 +5,7 @@ import userlogoutController from "./userlogoutController.js";
 import userpasswordChangeController from "./userpasswordChangeController.js";
 import getUsersContactController from "./getUsersContactController.js";
 import getMessagesController from "./getMessagesController.js";
+import getContactlistController from "./getContactlistController.js";
 
 export {
   userregisterController,
@@ -13,5 +14,6 @@ export {
   userlogoutController,
   userpasswordChangeController,
   getMessagesController,
-  getUsersContactController
+  getUsersContactController,
+  getContactlistController
 };

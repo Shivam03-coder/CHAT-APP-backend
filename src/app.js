@@ -21,9 +21,11 @@ app.use(
 import { Authroutes } from "./routes/userauthRoute.js";
 import { userContactRoute } from "./routes/userContactRoutes.js";
 import { msgsRoute } from "./routes/msgsRoute.js";
+import { conatctListRoute } from "./routes/contactListRoutes.js";
 
 app.use("/api/v1/chat-app/user", Authroutes);
 app.use("/api/v1/chat-app/user", userContactRoute);
 app.use("/api/v1/chat-app/user", msgsRoute);
+app.use("/api/v1/chat-app/user", conatctListRoute);
 
 export { app };

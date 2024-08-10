@@ -1,20 +1,21 @@
 import messageModel from "../models/messagesModel.js";
+import mongoose from "mongoose";
 
 const getContactlistController = async (req, res) => {
   try {
     const userId = req.user._id;
 
-    if (!userId) {
-      return res.status(500).json({
+    if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({
         status: "failed",
-        message: `Unable to find user ! `,
+        message: "Invalid user ID!",
       });
     }
 
-    const contact = await messageModel.aggregate([
+    const contacts = await messageModel.aggregate([
       {
         $match: {
-          $or: [{ sender: userId, receiver: userId }],
+          $or: [{ sender: userId }, { receiver: userId }],
         },
       },
       {
@@ -23,24 +24,46 @@ const getContactlistController = async (req, res) => {
       {
         $group: {
           _id: {
-            if: { $eq: ["$sender", userId] },
+            $cond: {
+              if: { $eq: ["$sender", userId] },
+              then: "$receiver",
+              else: "$sender",
+            },
           },
+          lastmessageTime: {
+            $first: "$timestamp",
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "_id",
+          foreignField: "_id",
+          as: "contactInfo",
+        },
+      },
+      {
+        $unwind: "$contactInfo",
+      },
+      {
+        $project: {
+          _id: 1,
+          lastmessagetime: 1,
+          email: "$contactInfo.email",
+          fullname: "$contactInfo.fullname",
+        },
+      },
+      {
+        $sort: {
+          lastmessagetime: -1,
         },
       },
     ]);
 
-    const messages = await messageModel
-      .find({
-        $or: [
-          { sender: senderId, receiver: reciverId },
-          { sender: reciverId, receiver: senderId },
-        ],
-      })
-      .sort({ timestamp: 1 });
-
     res.status(200).json({
       status: "success",
-      data: messages,
+      data: contacts,
     });
   } catch (error) {
     res.status(500).json({
