@@ -15,5 +15,5 @@ export {
   userpasswordChangeController,
   getMessagesController,
   getUsersContactController,
-  getContactlistController
+  getContactlistController,
 };
