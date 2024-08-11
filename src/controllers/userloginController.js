@@ -42,6 +42,7 @@ const userloginController = async (req, res) => {
       sameSite: "None",
       secure: true,
       httpOnly: false,
+      domain: '.vercel.app',
     });
     
     // Response after user successfully login

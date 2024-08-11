@@ -7,6 +7,7 @@ const setTokenscookies = (res, accessToken, refreshToken) => {
     secure: true,
     maxAge: ms(appconfig.ACCESS_TOKEN_EXP),
     sameSite: "None",
+    domain: '.vercel.app',
   });
 
   res.cookie("refreshToken", refreshToken, {
@@ -14,6 +15,7 @@ const setTokenscookies = (res, accessToken, refreshToken) => {
     httpOnly: true,
     secure: true,
     sameSite: "None",
+    domain: '.vercel.app',
   });
 };
 
