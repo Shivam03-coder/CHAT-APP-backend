@@ -1,10 +1,9 @@
 import { Router } from "express";
-import {
-  getMessagesController,
-} from "../controllers/index.js";
+import { getMessagesController } from "../controllers/index.js";
 import passport from "passport";
 import getnewToken from "../middlewares/getnewToken.js";
-export const msgsRoute = Router();
+
+const msgsRoute = Router();
 
 msgsRoute
   .route("/getmsgs")
@@ -12,5 +11,6 @@ msgsRoute
     getnewToken,
     passport.authenticate("jwt", { session: false }),
     getMessagesController
-);
+  );
 
+export { msgsRoute };
