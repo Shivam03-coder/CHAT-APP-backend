@@ -36,13 +36,11 @@ const userloginController = async (req, res) => {
 
     setTokenscookies(res, accessToken, refreshToken);
 
-    // Send cookies
     res.cookie("isUserAuthenticated", user.isAuthenticated, {
-      maxAge: 5 * 24 * 60 * 60 * 1000,
-      sameSite: "None",
+      maxAge: 5 * 24 * 60 * 60 * 1000,  
+      sameSite: 'None',
       secure: true,
       httpOnly: false,
-      domain: '.vercel.app',
     });
     
     // Response after user successfully login
