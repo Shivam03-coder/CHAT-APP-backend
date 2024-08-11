@@ -8,13 +8,11 @@ const setTokenscookies = (res, accessToken, refreshToken) => {
     httpOnly: true,
     secure: true,
     maxAge: ms(appconfig.ACCESS_TOKEN_EXP),
-    sameSite: "None",
   });
 
   res.cookie("refreshToken", refreshToken, {
     maxAge: ms(appconfig.REFRESH_TOKEN_EXP),
     httpOnly: true,
-    sameSite: "None",
     secure: true,
   });
 };
