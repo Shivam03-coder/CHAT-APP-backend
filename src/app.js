@@ -6,7 +6,6 @@ import "./config/passportjwtconfig.js";
 import { passport } from "./config/passportjwtconfig.js";
 import { appconfig } from "./config/appconfig.js";
 import { fileURLToPath } from "url";
-import helmet from "helmet";
 
 
 const app = express();
@@ -23,11 +22,7 @@ app.use(
     optionsSuccessStatus: 200,
   })
 );
-app.use(
-  helmet({
-    crossOriginResourcePolicy: { policy: "same-origin" },
-  })
-);
+
 app.use(passport.initialize());
 app.use(cookieParser());
 app.use(express.json({ limit: "50mb" }));
