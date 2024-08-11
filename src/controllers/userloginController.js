@@ -37,7 +37,6 @@ const userloginController = async (req, res) => {
     // Send cookies
     res.cookie("isUserAuthenticated", user.isAuthenticated, {
       maxAge: 5 * 24 * 60 * 60 * 1000,
-      sameSite: "None",
     });
 
     setTokenscookies(res, accessToken, refreshToken);
