@@ -6,6 +6,8 @@ import "./config/passportjwtconfig.js";
 import { passport } from "./config/passportjwtconfig.js";
 import { appconfig } from "./config/appconfig.js";
 import { fileURLToPath } from "url";
+import helmet from "helmet";
+
 
 const app = express();
 
@@ -14,11 +16,16 @@ const __dirname = path.dirname(__filename);
 
 app.use(
   cors({
-    origin: appconfig.APP_BASE_URL,
+    origin: `${appconfig.APP_BASE_URL}`,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     optionsSuccessStatus: 200,
+  })
+);
+app.use(
+  helmet({
+    crossOriginResourcePolicy: { policy: "same-origin" },
   })
 );
 app.use(passport.initialize());
@@ -29,8 +36,6 @@ app.use(
   "/uploads/files",
   express.static(path.join(__dirname, "../uploads/files"))
 );
-
-
 
 import { Authroutes } from "./routes/userauthRoute.js";
 import { userContactRoute } from "./routes/userContactRoutes.js";
