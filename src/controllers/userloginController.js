@@ -37,9 +37,11 @@ const userloginController = async (req, res) => {
 
     setTokenscookies(res, accessToken, refreshToken);
 
-
     res.cookie("isUserAuthenticated", user.isAuthenticated, {
       maxAge: 5 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
     });
 
     // Response after user successfully login
