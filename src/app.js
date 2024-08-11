@@ -38,10 +38,10 @@ import { msgsRoute } from "./routes/msgsRoute.js";
 import { conatctListRoute } from "./routes/contactListRoutes.js";
 import { uploadFileRoute } from "./routes/uploadfileRoute.js";
 
-app.use("/api/v1/chat-app/user", Authroutes);
-app.use("/api/v1/chat-app/user", userContactRoute);
-app.use("/api/v1/chat-app/user", msgsRoute);
-app.use("/api/v1/chat-app/user", conatctListRoute);
-app.use("/api/v1/chat-app/user", uploadFileRoute);
+app.use("api/v1/chat-app/user", Authroutes);
+app.use("api/v1/chat-app/user", userContactRoute);
+app.use("api/v1/chat-app/user", msgsRoute);
+app.use("api/v1/chat-app/user", conatctListRoute);
+app.use("api/v1/chat-app/user", uploadFileRoute);
 
 export { app };
