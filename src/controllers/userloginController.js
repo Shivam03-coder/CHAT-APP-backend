@@ -35,14 +35,14 @@ const userloginController = async (req, res) => {
     await user.save();
 
     // Send cookies
-
-    setTokenscookies(res, accessToken, refreshToken);
-
     res.cookie("isUserAuthenticated", user.isAuthenticated, {
-      maxAge: 5 * 24 * 60 * 60 * 1000, // 5 days
+      maxAge: 5 * 24 * 60 * 60 * 1000,
       sameSite: "None",
       path: "/",
+      domain: appconfig.APP_BASE_URL.replace(/^https?:\/\//, ""),
     });
+
+    setTokenscookies(res, accessToken, refreshToken);
 
     // Response after user successfully login
 
