@@ -1,3 +1,4 @@
+import { appconfig } from "../config/appconfig.js";
 import UserModel from "../models/usermodel.js";
 import generateTokens from "../utils/generateTokens.js";
 import setTokenscookies from "../utils/setTokenscookies.js";
@@ -38,7 +39,9 @@ const userloginController = async (req, res) => {
     setTokenscookies(res, accessToken, refreshToken);
 
     res.cookie("isUserAuthenticated", user.isAuthenticated, {
-      maxAge: 5 * 24 * 60 * 60 * 1000,
+      maxAge: 5 * 24 * 60 * 60 * 1000, // 5 days
+      sameSite: "None",
+      domain: appconfig.APP_BASE_URL, 
     });
 
     // Response after user successfully login
