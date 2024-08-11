@@ -41,7 +41,8 @@ const userloginController = async (req, res) => {
     res.cookie("isUserAuthenticated", user.isAuthenticated, {
       maxAge: 5 * 24 * 60 * 60 * 1000, // 5 days
       sameSite: "None",
-      domain: appconfig.APP_BASE_URL, 
+      domain: appconfig.APP_BASE_URL,
+      path: "/",
     });
 
     // Response after user successfully login

@@ -9,6 +9,7 @@ const setTokenscookies = (res, accessToken, refreshToken) => {
     secure: true,
     maxAge: ms(appconfig.ACCESS_TOKEN_EXP),
     domain: domain,
+    path: "/",
   });
 
   res.cookie("refreshToken", refreshToken, {
@@ -17,6 +18,7 @@ const setTokenscookies = (res, accessToken, refreshToken) => {
     maxAge: ms(appconfig.REFRESH_TOKEN_EXP),
     sameSite: "None",
     domain: domain,
+    path: "/",
   });
 };
 
