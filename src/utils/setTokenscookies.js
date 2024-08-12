@@ -17,7 +17,6 @@ const setTokenscookies = (res, accessToken, refreshToken) => {
     sameSite: "None",
     secure: true,
     expires: accessTokenExpirationDate,
-    domain: "localhost", // Specify the domain
   });
 
   res.cookie("refreshToken", refreshToken, {
@@ -25,7 +24,6 @@ const setTokenscookies = (res, accessToken, refreshToken) => {
     sameSite: "None",
     secure: true,
     expires: refreshTokenExpirationDate,
-    domain: "localhost", // Specify the domain
   });
 };
 
