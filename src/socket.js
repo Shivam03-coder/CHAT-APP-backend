@@ -5,7 +5,7 @@ import messageModel from "./models/messagesModel.js";
 const setUpSocket = (server) => {
   const io = new SocketIOserver(server, {
     cors: {
-      origin: "*",
+      origin: `${appconfig.APP_BASE_URL}`,
       methods: ["GET", "POST"],
       credentials: true,
     },
