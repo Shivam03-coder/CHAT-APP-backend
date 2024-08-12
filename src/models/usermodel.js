@@ -33,33 +33,46 @@ const userSchema = new mongoose.Schema(
   }
 );
 
+// Pre-save middleware to hash the password before saving
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     return next();
   }
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-  next();
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  } catch (error) {
+    next(error);
+  }
 });
 
+// Method to check if the provided password is correct
 userSchema.methods.isPasswordcorrect = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 
-userSchema.methods.generateAccessToken = async function () {
+// Method to generate an access token
+userSchema.methods.generateAccessToken = function () {
+  // Calculate expiration time as 1 day from now
+  const expiresIn = new Date(Date.now() + 24 * 60 * 60 * 1000); // 1 day in milliseconds
   return Jwt.sign(
     {
       _id: this._id,
-      emial: this.email,
+      email: this.email,
       roles: this.roles,
     },
     appconfig.ACCESS_TOKEN_KEY,
     {
-      expiresIn: appconfig.ACCESS_TOKEN_EXP,
+      expiresIn: expiresIn.getTime() / 1000, // Convert to seconds for JWT
     }
   );
 };
-userSchema.methods.generateRefreshToken = async function () {
+
+// Method to generate a refresh token
+userSchema.methods.generateRefreshToken = function () {
+  // Calculate expiration time as 5 days from now
+  const expiresIn = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000); // 5 days in milliseconds
   return Jwt.sign(
     {
       _id: this._id,
@@ -67,7 +80,7 @@ userSchema.methods.generateRefreshToken = async function () {
     },
     appconfig.REFRESH_TOKEN_KEY,
     {
-      expiresIn: appconfig.REFRESH_TOKEN_EXP,
+      expiresIn: expiresIn.getTime() / 1000, // Convert to seconds for JWT
     }
   );
 };
