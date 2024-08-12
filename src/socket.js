@@ -7,7 +7,7 @@ const setUpSocket = (server) => {
     cors: {
       origin: `${appconfig.APP_BASE_URL}`,
       methods: ["GET", "POST"],
-      credentials: true,
+      credentials: true, 
     },
   });
 
@@ -39,7 +39,7 @@ const setUpSocket = (server) => {
     socket.on("sendMessage", async (message) => {
       try {
         const senderSocketId = userSocketMap.get(message.sender);
-        const reciverSocketId = userSocketMap.get(message.receiver);
+        const receiverSocketId = userSocketMap.get(message.receiver);
 
         const createMessage = await messageModel.create(message);
 
@@ -47,12 +47,13 @@ const setUpSocket = (server) => {
           .findById(createMessage._id)
           .populate("sender", "id fullname email")
           .populate("receiver", "id fullname email");
-        if (reciverSocketId) {
-          io.to(reciverSocketId).emit("reciveMessage", MessageData);
+
+        if (receiverSocketId) {
+          io.to(receiverSocketId).emit("receiveMessage", MessageData);
         }
 
         if (senderSocketId) {
-          io.to(senderSocketId).emit("reciveMessage", MessageData);
+          io.to(senderSocketId).emit("receiveMessage", MessageData);
         }
       } catch (error) {
         console.error("Error sending message:", error);
