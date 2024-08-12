@@ -22,7 +22,7 @@ app.set("trust proxy", 1);
 // Middleware for CORS and cookies
 app.use(
   cors({
-    origin: `${appconfig.APP_BASE_URL}`,
+    origin: "*",
     credentials: true,
     optionsSuccessStatus: 200,
     methods: ["GET", "POST"],
