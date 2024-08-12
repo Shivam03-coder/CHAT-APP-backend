@@ -7,6 +7,7 @@ const setTokenscookies = (res, accessToken, refreshToken) => {
     sameSite: "None",
     secure: true,
     maxAge: ms(appconfig.ACCESS_TOKEN_EXP),
+    domain: "shivamchatbox.netlify.app",
   });
 
   res.cookie("refreshToken", refreshToken, {
@@ -14,6 +15,7 @@ const setTokenscookies = (res, accessToken, refreshToken) => {
     sameSite: "None",
     secure: true,
     maxAge: ms(appconfig.REFRESH_TOKEN_EXP),
+    domain: "shivamchatbox.netlify.app",
   });
 };
 
