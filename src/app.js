@@ -13,15 +13,21 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Static file serving middleware
-app.use("/uploads/files", express.static(path.join(__dirname, "../uploads/files")));
+app.use(
+  "/uploads/files",
+  express.static(path.join(__dirname, "../uploads/files"))
+);
 
+app.set("trust proxy", 1);
 // Middleware for CORS and cookies
-app.use(cors({
-  origin: `${appconfig.APP_BASE_URL}`,
-  credentials: true,
-  optionsSuccessStatus: 200,
-  methods: ["GET", "POST"],
-}));
+app.use(
+  cors({
+    origin: `${appconfig.APP_BASE_URL}`,
+    credentials: true,
+    optionsSuccessStatus: 200,
+    methods: ["GET", "POST"],
+  })
+);
 
 app.use(cookieParser());
 app.use(express.json({ limit: "50mb" }));
