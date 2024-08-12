@@ -1,4 +1,3 @@
-import { appconfig } from "../config/appconfig.js";
 import UserModel from "../models/usermodel.js";
 import generateTokens from "../utils/generateTokens.js";
 import setTokenscookies from "../utils/setTokenscookies.js";
@@ -29,20 +28,8 @@ const userloginController = async (req, res) => {
 
     const { accessToken, refreshToken } = await generateTokens(user._id);
 
-    // set isAuthenticated true
 
-    user.isAuthenticated = true;
-    await user.save();
-
-    setTokenscookies(res, accessToken, refreshToken);
-
-    res.cookie("isUserAuthenticated", user.isAuthenticated, {
-      httpOnly: false,
-      sameSite: "None",
-      secure: true,
-      maxAge: 5 * 24 * 60 * 60 * 1000,
-    });
-
+    await setTokenscookies(res, accessToken, refreshToken , user);
     // Response after user successfully login
 
     res.status(200).json({

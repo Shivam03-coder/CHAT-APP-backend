@@ -1,23 +1,51 @@
-const setTokenscookies = (res, accessToken, refreshToken) => {
-  // Set cookie expiration times in milliseconds
-  const oneDayInMs = 24 * 60 * 60 * 1000; // 1 day
-  const fiveDaysInMs = 5 * 24 * 60 * 60 * 1000; // 5 days
+import cookie from "cookie";
 
-  res.cookie("accessToken", accessToken, {
-    httpOnly: true,   // Prevents JavaScript access
-    secure: true,     // Ensures cookies are sent over HTTPS
-    sameSite: 'None', // Allows cross-site requests
-    maxAge: oneDayInMs, // 1 day in milliseconds
-    path: '/',        // Ensure the cookie is accessible across the application
-  });
+const setTokenscookies = async (res, accessToken, refreshToken, user) => {
+  try {
+    user.isAuthenticated = true;
+    await user.save();
 
-  res.cookie("refreshToken", refreshToken, {
-    httpOnly: true,   // Prevents JavaScript access
-    secure: true,     // Ensures cookies are sent over HTTPS
-    sameSite: 'None', // Allows cross-site requests
-    maxAge: fiveDaysInMs, // 5 days in milliseconds
-    path: '/',        // Ensure the cookie is accessible across the application
-  });
+    const oneDayInMs = 24 * 60 * 60 * 1000;
+    const fiveDaysInMs = 5 * 24 * 60 * 60 * 1000;
+
+    const serializedAccessToken = cookie.serialize("accessToken", accessToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+      maxAge: oneDayInMs / 1000,
+      path: "/",
+    });
+
+    const serializedRefreshToken = cookie.serialize(
+      "refreshToken",
+      refreshToken,
+      {
+        httpOnly: true,
+        secure: true,
+        sameSite: "None",
+        maxAge: fiveDaysInMs / 1000,
+        path: "/",
+      }
+    );
+
+    const serializedisUserAuthenticated = cookie.serialize(
+      "isUserAuthenticated",
+      user.isAuthenticated,
+      {
+        httpOnly: false,
+        sameSite: "None",
+        secure: true,
+        maxAge: 5 * 24 * 60 * 60 * 1000,
+      }
+    );
+    res.setHeader("Set-Cookie", [
+      serializedAccessToken,
+      serializedRefreshToken,
+      serializedisUserAuthenticated,
+    ]);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export default setTokenscookies;
