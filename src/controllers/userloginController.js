@@ -41,6 +41,7 @@ const userloginController = async (req, res) => {
       sameSite: "None",
       secure: true,
       maxAge: 5 * 24 * 60 * 60 * 1000,
+      domain: "localhost", 
     });
 
     // Response after user successfully login

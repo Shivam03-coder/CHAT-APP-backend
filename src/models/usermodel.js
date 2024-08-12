@@ -54,8 +54,6 @@ userSchema.methods.isPasswordcorrect = async function (password) {
 
 // Method to generate an access token
 userSchema.methods.generateAccessToken = function () {
-  // Calculate expiration time as 1 day from now
-  const expiresIn = new Date(Date.now() + 24 * 60 * 60 * 1000); // 1 day in milliseconds
   return Jwt.sign(
     {
       _id: this._id,
@@ -64,15 +62,13 @@ userSchema.methods.generateAccessToken = function () {
     },
     appconfig.ACCESS_TOKEN_KEY,
     {
-      expiresIn: expiresIn.getTime() / 1000, // Convert to seconds for JWT
+      expiresIn: "1d" 
     }
   );
 };
 
 // Method to generate a refresh token
 userSchema.methods.generateRefreshToken = function () {
-  // Calculate expiration time as 5 days from now
-  const expiresIn = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000); // 5 days in milliseconds
   return Jwt.sign(
     {
       _id: this._id,
@@ -80,7 +76,7 @@ userSchema.methods.generateRefreshToken = function () {
     },
     appconfig.REFRESH_TOKEN_KEY,
     {
-      expiresIn: expiresIn.getTime() / 1000, // Convert to seconds for JWT
+      expiresIn: "5d", 
     }
   );
 };
