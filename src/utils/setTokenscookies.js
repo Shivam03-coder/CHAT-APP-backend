@@ -13,7 +13,7 @@ const setTokenscookies = async (res, accessToken, refreshToken, user) => {
       secure: true,
       sameSite: "None",
       maxAge: oneDayInMs / 1000,
-      path: "/",
+       domain: ".nxtdev.in", 
     });
 
     const serializedRefreshToken = cookie.serialize(
@@ -24,7 +24,7 @@ const setTokenscookies = async (res, accessToken, refreshToken, user) => {
         secure: true,
         sameSite: "None",
         maxAge: fiveDaysInMs / 1000,
-        path: "/",
+          domain: ".nxtdev.in", 
       }
     );
 
@@ -36,6 +36,7 @@ const setTokenscookies = async (res, accessToken, refreshToken, user) => {
         sameSite: "None",
         secure: true,
         maxAge: 5 * 24 * 60 * 60 * 1000,
+           domain: ".nxtdev.in", 
       }
     );
     res.setHeader("Set-Cookie", [
