@@ -1,47 +1,32 @@
-import cookie from "cookie";
+import ms from "ms";
 
 const setTokenscookies = async (res, accessToken, refreshToken, user) => {
   try {
     user.isAuthenticated = true;
     await user.save();
 
-    const oneDayInMs = 24 * 60 * 60 * 1000;
-    const fiveDaysInMs = 5 * 24 * 60 * 60 * 1000;
-
-    const serializedAccessToken = cookie.serialize("accessToken", accessToken, {
+    res.cookie("accessToken", accessToken, {
       httpOnly: true,
       secure: true,
       sameSite: "None",
-      maxAge: oneDayInMs / 1000,
-       domain: ".nxtdev.in", 
+      maxAge: ms("1d"),
+      domain: ".nxtdev.in",
     });
 
-    const serializedRefreshToken = cookie.serialize(
-      "refreshToken",
-      refreshToken,
-      {
-          httpOnly: true,
-          secure: true,
-          maxAge: fiveDaysInMs / 1000,
-          domain: ".nxtdev.in", 
-      }
-    );
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: true,
+      maxAge: ms("5d"),
+      domain: ".nxtdev.in",
+    });
 
-    const serializedisUserAuthenticated = cookie.serialize(
-      "isUserAuthenticated",
-      user.isAuthenticated,
-      {
-        httpOnly: false,
-        secure: true,
-        maxAge: 5 * 24 * 60 * 60 * 1000,
-       domain: ".nxtdev.in", 
-      }
-    );
-    res.setHeader("Set-Cookie", [
-      serializedAccessToken,
-      serializedRefreshToken,
-      serializedisUserAuthenticated,
-    ]);
+    res.cookie("isUserAuthenticated", user.isAuthenticated, {
+      httpOnly: false,
+      secure: true,
+      maxAge: ms("5d"),
+      domain: ".nxtdev.in",
+    });
+
   } catch (error) {
     console.log(error);
   }
