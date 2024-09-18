@@ -20,10 +20,9 @@ const setTokenscookies = async (res, accessToken, refreshToken, user) => {
       "refreshToken",
       refreshToken,
       {
-        httpOnly: true,
-        secure: true,
-        sameSite: "None",
-        maxAge: fiveDaysInMs / 1000,
+          httpOnly: true,
+          secure: true,
+          maxAge: fiveDaysInMs / 1000,
           domain: ".nxtdev.in", 
       }
     );
@@ -33,10 +32,9 @@ const setTokenscookies = async (res, accessToken, refreshToken, user) => {
       user.isAuthenticated,
       {
         httpOnly: false,
-        sameSite: "None",
         secure: true,
         maxAge: 5 * 24 * 60 * 60 * 1000,
-           domain: ".nxtdev.in", 
+       domain: ".nxtdev.in", 
       }
     );
     res.setHeader("Set-Cookie", [
